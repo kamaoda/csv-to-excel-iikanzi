@@ -20,6 +20,7 @@ export default function Home() {
   const [option, setOption] = useState<ConvertOption>({
     encoding: "utf8",
     delimiter: ",",
+    quote: "\"",
   });
 
   const handleConvertButton = () => {
@@ -85,6 +86,16 @@ function InputOptionArea(props: InputOptionArea) {
         ]}
         onChange={(value) => setOption({ ...option, delimiter: value as ConvertOption["delimiter"] })}
       />
+      <OptionSelect 
+        label="Quote" 
+        value={option.quote} 
+        options={[
+          { value: "\"", label: "\"" },
+          { value: "'", label: "'" },
+          { value: "", label: "none" },
+        ]}
+        onChange={(value) => setOption({ ...option, quote: value as ConvertOption["quote"] })}
+      />
     </Flex>
   );
 }
@@ -112,7 +123,8 @@ function OptionSelect(props: OptionSelectProps) {
 interface ConvertOption {
   encoding: "utf8" | "ucs2" | "utf16le" | "latin1" | "ascii",
   delimiter: "," | "/t",
-  // TODO
+  quote: "\"" | "'",
+  // TODO add more options
 };
 interface convertAndDownloadProps {
   file: File;
