@@ -2,12 +2,13 @@
 
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Link } from "@chakra-ui/next-js";
-import { Button, Flex, Heading, Input, ListItem, Select, UnorderedList, useColorModeValue } from "@chakra-ui/react";
+import { Button, Flex, Heading, Input, ListItem, Select, UnorderedList, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { parse } from "csv-parse/sync";
 import { Dispatch, SetStateAction, useState } from "react";
 import * as XLSX from 'xlsx';
 
 export default function Home() {
+  const { toggleColorMode } = useColorMode();
   const formBackgroundMain = useColorModeValue("gray.100", "gray.700");
   const formBackgroundSub = useColorModeValue("gray.200", "gray.600");
   
@@ -118,6 +119,7 @@ export default function Home() {
         <p>Source code is available on <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda/csv-to-excel-iikanzi">GitHub<ExternalLinkIcon mx='2px' /></Link>.</p>
         <p>TODO: LICENSE</p>{/* TODO OSS ライセンスの表示 */}
       </Flex>
+      <Button m={2} colorScheme="teal" onClick={toggleColorMode} mt={4}>Toggle Color Mode</Button>
     </Flex>
   );
 };
@@ -134,7 +136,7 @@ function InputOptionArea(props: InputOptionArea) {
       direction="column"
       p="4"
       rounded={6}
-      background={useColorModeValue("gray.200", "gray.600")}
+      background={useColorModeValue("gray.300", "gray.600")}
     >
       <Heading size='md'>Options</Heading>
       <OptionSelect 
@@ -182,7 +184,7 @@ function OptionSelect(props: OptionSelectProps) {
   return (
     <Flex direction="column" gap={2}>
       <Heading size="sm">{props.label}</Heading>
-      <Select value={props.value} onChange={(event) => props.onChange(event.target.value)}>
+      <Select variant="filled" value={props.value} onChange={(event) => props.onChange(event.target.value)}>
         {props.options.map((option) => (
           <option key={option.value} value={option.value}>{option.label}</option>
         ))}
