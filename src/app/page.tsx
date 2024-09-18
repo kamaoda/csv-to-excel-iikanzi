@@ -64,28 +64,51 @@ function InputOptionArea(props: InputOptionArea) {
       background={useColorModeValue("gray.200", "gray.600")}
     >
       <Heading size='md'>Options</Heading>
-      <Heading size='sm'>Encoding</Heading>
-      <Select 
+      <OptionSelect 
+        label="Encoding" 
         value={option.encoding} 
-        onChange={(event) => setOption({ ...option, encoding: event.target.value as ConvertOption["encoding"] })}
-      >
-        <option value="utf8">UTF-8</option>
-        <option value="ucs2">UCS-2</option>
-        <option value="utf16le">UTF-16LE</option>
-        <option value="latin1">Latin1</option>
-        <option value="ascii">ASCII</option>
-      </Select>
-      <Heading size='sm'>Delimiter</Heading>
-      <Select 
+        options={[
+          { value: "utf8", label: "UTF-8" },
+          { value: "ucs2", label: "UCS-2" },
+          { value: "utf16le", label: "UTF-16LE" },
+          { value: "latin1", label: "Latin1" },
+          { value: "ascii", label: "ASCII" }
+        ]}
+        onChange={(value) => setOption({ ...option, encoding: value as ConvertOption["encoding"] })}
+      />
+      <OptionSelect 
+        label="Delimiter" 
         value={option.delimiter} 
-        onChange={(event) => setOption({ ...option, delimiter: event.target.value as "," | "/t" })}
-      >
-        <option value=",">,</option>
-        <option value="\t">tab</option>
+        options={[
+          { value: ",", label: "," },
+          { value: "\t", label: "tab" }
+        ]}
+        onChange={(value) => setOption({ ...option, delimiter: value as "," | "/t" })}
+      />
+    </Flex>
+  );
+}
+
+interface OptionSelectProps {
+  label: string;
+  value: string;
+  options: { value: string, label: string }[];
+  onChange: (value: string) => void;
+}
+function OptionSelect(props: OptionSelectProps) {
+  return (
+    <Flex direction="column" gap={2}>
+      <Heading size="sm">{props.label}</Heading>
+      <Select value={props.value} onChange={(event) => props.onChange(event.target.value)}>
+        {props.options.map((option) => (
+          <option key={option.value} value={option.value}>{option.label}</option>
+        ))}
       </Select>
     </Flex>
   );
 }
+
+
 interface ConvertOption {
   encoding: "utf8" | "ucs2" | "utf16le" | "latin1" | "ascii",
   delimiter: "," | "/t",
