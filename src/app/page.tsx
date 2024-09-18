@@ -19,18 +19,7 @@ export default function Home() {
 
   const handleConvertButton = () => {
     if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const csvData = event.target?.result as string;
-
-      const aoa = parse(csvData, {});
-      const wbout = createWorkbook(aoa);
-      downloadExcel(wbout);
-    };
-
-    console.log('convert');
-    reader.readAsText(file);
+    convertAndDownload(file);
   };
 
   return (
@@ -52,6 +41,19 @@ export default function Home() {
     </Flex>
   );
 };
+
+function convertAndDownload(file: File) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const csvData = event.target?.result as string;
+
+    const aoa = parse(csvData, {});
+    const wbout = createWorkbook(aoa);
+    downloadExcel(wbout);
+  };
+
+  reader.readAsText(file);
+}
 
 function createWorkbook(aoa: string[][]) {
   const workbook = XLSX.utils.book_new();
