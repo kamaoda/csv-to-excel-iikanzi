@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, Flex, Heading, Input, useColorModeValue } from "@chakra-ui/react";
+import { parse } from 'csv-parse/sync';
 import { useState } from "react";
 import * as XLSX from 'xlsx';
 
@@ -17,18 +18,13 @@ export default function Home() {
   };
 
   const handleConvertButton = () => {
-    console.log('convert');
     if (!file) return;
-
+    
     const reader = new FileReader();
     reader.onload = (event) => {
       const csvData = event.target?.result as string;
-      const aoa = [ // FIXME: Convert csvData to aoa
-        ['Hello1', 'World1'],
-        ['Hello2', 'World2', 'guys2'],
-        ['Hello3', 'World3', 'guys3', 'and3'],
-        ['0004', '1-2-3', ',"', ''],
-      ];
+
+      const aoa = parse(csvData, {});
       const workbook = XLSX.utils.book_new();
       const worksheet = XLSX.utils.aoa_to_sheet(aoa);
       XLSX.utils.book_append_sheet(workbook, worksheet, "Converted from CSV");
@@ -47,6 +43,8 @@ export default function Home() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     };
+
+    console.log('convert');
     reader.readAsText(file);
   };
 
