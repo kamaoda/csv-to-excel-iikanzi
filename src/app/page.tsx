@@ -83,7 +83,7 @@ function InputOptionArea(props: InputOptionArea) {
           { value: ",", label: "," },
           { value: "\t", label: "tab" }
         ]}
-        onChange={(value) => setOption({ ...option, delimiter: value as "," | "/t" })}
+        onChange={(value) => setOption({ ...option, delimiter: value as ConvertOption["delimiter"] })}
       />
     </Flex>
   );
