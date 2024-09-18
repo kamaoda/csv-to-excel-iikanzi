@@ -1,12 +1,15 @@
 'use client'
 
-import { Button, Flex, Heading, Input, Select, useColorModeValue } from "@chakra-ui/react";
-import { parse } from 'csv-parse/sync';
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { Link } from "@chakra-ui/next-js";
+import { Button, Flex, Heading, Input, ListItem, Select, UnorderedList, useColorModeValue } from "@chakra-ui/react";
+import { parse } from "csv-parse/sync";
 import { Dispatch, SetStateAction, useState } from "react";
 import * as XLSX from 'xlsx';
 
 export default function Home() {
-  const formBackground = useColorModeValue("gray.100", "gray.700");
+  const formBackgroundMain = useColorModeValue("gray.100", "gray.700");
+  const formBackgroundSub = useColorModeValue("gray.200", "gray.600");
   
   const [file, setFile] = useState<File | null>(null);
 
@@ -33,18 +36,87 @@ export default function Home() {
       minHeight="100dvh"
       alignItems="center"
       justifyContent="center"
+      direction="column"
     > 
       <Flex
         direction="column"
-        background={formBackground}
+        background={formBackgroundMain}
         p="12"
+        m="4"
         rounded={6}
         gap={2}
+        width={["100%", "80%", "40em"]}
       >
-        <Heading mb={6}>CONVERT .csv TO .xlsx</Heading>
+        <Heading mb={6} size="2xl">CONVERT .csv TO .xlsx</Heading>
         <Input variant="filled" mb={2} type="file" onChange={handleFileChangeButton}/>
         <Button colorScheme="teal" onClick={handleConvertButton}>convert!</Button>
         <InputOptionArea option={option} setOption={setOption}/>
+      </Flex>
+      {/* TODO Refactor */}
+      <Flex
+        direction="column"
+        p="6"
+        m="2"
+        rounded={6}
+        gap={2}
+        background={formBackgroundSub}
+        width={["100%", "80%", "40em"]}
+      >
+        <Heading size="xl">What's this?</Heading>
+        <p>This is a simple web app that converts .csv file to .xlsx file.</p>
+        <p>Choose a .csv file and click the "convert!" button.</p>
+        <p>The converted file will be downloaded automatically.</p>
+      </Flex>
+      <Flex
+        direction="column"
+        p="6"
+        m="2"
+        rounded={6}
+        gap={2}
+        background={formBackgroundSub}
+        width={["100%", "80%", "40em"]}
+      >
+        <Heading size="xl">Why you need this?</Heading>
+        <p>Excel can handle .csv file, but its behavior is not always as you expect.</p>
+        
+        <Heading size="md">Problems with Excel</Heading>
+        <UnorderedList>
+          <ListItem>Excel removes leading zeros from numbers.</ListItem>
+          <ListItem>Excel converts long numbers to scientific notation.</ListItem>
+          <ListItem>Excel converts date-like strings to date.</ListItem>
+        </UnorderedList>
+
+        <Heading size="md">Benefits of this tool</Heading>
+        <p>you can avoid these problems by converting .csv to .xlsx with this tool.</p>
+      </Flex>
+      <Flex
+        direction="column"
+        p="6"
+        m="2"
+        rounded={6}
+        gap={2}
+        background={formBackgroundSub}
+        width={["100%", "80%", "40em"]}
+      >
+        <Heading size="xl">Is your data safe?</Heading>
+        <p>Yes, your data is safe.</p>
+        <p>All the conversion process is done on your browser.</p>
+        <p>That is, your data is not sent to any server.</p> 
+      </Flex>
+
+      <Flex
+        direction="column"
+        p="6"
+        m="2"
+        rounded={6}
+        gap={2}
+        background={formBackgroundSub}
+        width={["100%", "80%", "40em"]}
+      >
+        <Heading size="xl">About this app</Heading>
+        <p>This app is created by <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda">kamaoda<ExternalLinkIcon mx='2px' /></Link>.</p>
+        <p>Source code is available on <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda/csv-to-excel-iikanzi">GitHub<ExternalLinkIcon mx='2px' /></Link>.</p>
+        <p>TODO: LICENSE</p>{/* TODO OSS ライセンスの表示 */}
       </Flex>
     </Flex>
   );
@@ -118,7 +190,6 @@ function OptionSelect(props: OptionSelectProps) {
     </Flex>
   );
 }
-
 
 interface ConvertOption {
   encoding: "utf8" | "ucs2" | "utf16le" | "latin1" | "ascii",
