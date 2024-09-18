@@ -49,7 +49,7 @@ export default function Home() {
       >
         <Heading mb={6} size="2xl">CONVERT .csv TO .xlsx</Heading>
         <Input variant="filled" mb={2} type="file" onChange={handleFileChangeButton}/>
-        <Button colorScheme="teal" onClick={handleConvertButton}>convert!</Button>
+        <Button colorScheme="teal" onClick={handleConvertButton}>Convert!</Button>
         <InputOptionArea option={option} setOption={setOption}/>
       </Flex>
       {/* TODO Refactor */}
@@ -62,9 +62,9 @@ export default function Home() {
         background={formBackgroundSub}
         width={["100%", "80%", "40em"]}
       >
-        <Heading size="xl">What's this?</Heading>
+        <Heading size="xl">What&apos;s this?</Heading>
         <p>This is a simple web app that converts .csv file to .xlsx file.</p>
-        <p>Choose a .csv file and click the "convert!" button.</p>
+        <p>Choose a .csv file and click the &quot;Convert!&quot; button.</p>
         <p>The converted file will be downloaded automatically.</p>
       </Flex>
       <Flex
@@ -217,7 +217,7 @@ function convertAndDownload(props: convertAndDownloadProps) {
   reader.readAsText(props.file);
 }
 
-function createWorkbook(aoa: string[][]) {
+function createWorkbook(aoa: string[][]) : BlobPart {
   const workbook = XLSX.utils.book_new();
   const worksheet = XLSX.utils.aoa_to_sheet(aoa);
   XLSX.utils.book_append_sheet(workbook, worksheet, "Converted from CSV");
@@ -226,7 +226,7 @@ function createWorkbook(aoa: string[][]) {
   return wbout;
 }
 
-function downloadExcel(wbout: any) {
+function downloadExcel(wbout: BlobPart) {
   const blob = new Blob([wbout], { type: 'application/octet-stream' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
