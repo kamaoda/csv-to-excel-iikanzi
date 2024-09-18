@@ -19,7 +19,7 @@ export default function Home() {
 
   const handleConvertButton = () => {
     if (!file) return;
-    convertAndDownload(file);
+    convertAndDownload({file: file});
   };
 
   return (
@@ -42,7 +42,10 @@ export default function Home() {
   );
 };
 
-function convertAndDownload(file: File) {
+interface convertAndDownloadProps {
+  file: File;
+}
+function convertAndDownload(props: convertAndDownloadProps) {
   const reader = new FileReader();
   reader.onload = (event) => {
     const csvData = event.target?.result as string;
@@ -52,7 +55,7 @@ function convertAndDownload(file: File) {
     downloadExcel(wbout);
   };
 
-  reader.readAsText(file);
+  reader.readAsText(props.file);
 }
 
 function createWorkbook(aoa: string[][]) {
@@ -60,7 +63,6 @@ function createWorkbook(aoa: string[][]) {
   const worksheet = XLSX.utils.aoa_to_sheet(aoa);
   XLSX.utils.book_append_sheet(workbook, worksheet, "Converted from CSV");
 
-  // Create a Blob from the workbook
   const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
   return wbout;
 }
