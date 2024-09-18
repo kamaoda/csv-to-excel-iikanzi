@@ -25,29 +25,13 @@ export default function Home() {
       const csvData = event.target?.result as string;
 
       const aoa = parse(csvData, {});
-      const workbook = XLSX.utils.book_new();
-      const worksheet = XLSX.utils.aoa_to_sheet(aoa);
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Converted from CSV");
-
-      // Create a Blob from the workbook
-      const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      const blob = new Blob([wbout], { type: 'application/octet-stream' });
-
-      // Create a link element and trigger a download
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'converted.xlsx';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const wbout = createWorkbook(aoa);
+      downloadExcel(wbout);
     };
 
     console.log('convert');
     reader.readAsText(file);
   };
-
 
   return (
     <Flex 
@@ -68,3 +52,25 @@ export default function Home() {
     </Flex>
   );
 };
+
+function createWorkbook(aoa: string[][]) {
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(aoa);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Converted from CSV");
+
+  // Create a Blob from the workbook
+  const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  return wbout;
+}
+
+function downloadExcel(wbout: any) {
+  const blob = new Blob([wbout], { type: 'application/octet-stream' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'converted.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
