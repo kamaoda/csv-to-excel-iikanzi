@@ -61,9 +61,9 @@ export default function Home() {
         p="12"
         rounded={6}
       >
-        <Heading mb={6}>CSVをいい感じの.xlsxに変換する君</Heading>
+        <Heading mb={6}>CONVERT .csv TO .xlsx</Heading>
         <Input variant="filled" mb={2} type="file" onChange={handleFileChangeButton}/>
-        <Button colorScheme="teal" onClick={handleConvertButton}>変換！</Button>
+        <Button colorScheme="teal" onClick={handleConvertButton}>convert!</Button>
       </Flex>
     </Flex>
   );
