@@ -117,7 +117,23 @@ export default function Home() {
         <Heading size="xl">About this app</Heading>
         <p>This app is created by <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda">kamaoda<ExternalLinkIcon mx='2px' /></Link>.</p>
         <p>Source code is available on <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda/csv-to-excel-iikanzi">GitHub<ExternalLinkIcon mx='2px' /></Link>.</p>
-        <p>TODO: LICENSE</p>{/* TODO OSS ライセンスの表示 */}
+        <p>Feel free to use and contribute to this app.</p>
+      </Flex>
+      <Flex
+        direction="column"
+        p="6"
+        m="2"
+        rounded={6}
+        gap={2}
+        background={formBackgroundSub}
+        width={["100%", "80%", "40em"]}
+      >
+        <Heading size="xl">OSS used in this app</Heading>
+        <UnorderedList>
+          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://nextjs.org/">Next.js<ExternalLinkIcon mx='2px' /></Link></ListItem>
+          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://chakra-ui.com/">Chakra UI<ExternalLinkIcon mx='2px' /></Link></ListItem>
+          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://sheetjs.com">SheetJS<ExternalLinkIcon mx='2px' /></Link></ListItem>
+        </UnorderedList>
       </Flex>
       <Button m={2} colorScheme="teal" onClick={toggleColorMode} mt={4}>Toggle Color Mode</Button>
     </Flex>
