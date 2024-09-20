@@ -2,7 +2,7 @@
 
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Link } from "@chakra-ui/next-js";
-import { Button, Flex, Heading, Input, ListItem, Select, UnorderedList, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Button, Flex, FlexProps, Heading, Input, ListItem, Select, UnorderedList, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { parse } from "csv-parse/sync";
 import { Dispatch, SetStateAction, useState } from "react";
 import * as XLSX from 'xlsx';
@@ -53,30 +53,13 @@ export default function Home() {
         <Button colorScheme="teal" onClick={handleConvertButton}>Convert!</Button>
         <InputOptionArea option={option} setOption={setOption}/>
       </Flex>
-      {/* TODO Refactor */}
-      <Flex
-        direction="column"
-        p="6"
-        m="2"
-        rounded={6}
-        gap={2}
-        background={formBackgroundSub}
-        width={["100%", "80%", "40em"]}
-      >
+      <SubCardFlex>
         <Heading size="xl">What&apos;s this?</Heading>
         <p>This is a simple web app that converts .csv file to .xlsx file.</p>
         <p>Choose a .csv file and click the &quot;Convert!&quot; button.</p>
         <p>The converted file will be downloaded automatically.</p>
-      </Flex>
-      <Flex
-        direction="column"
-        p="6"
-        m="2"
-        rounded={6}
-        gap={2}
-        background={formBackgroundSub}
-        width={["100%", "80%", "40em"]}
-      >
+      </SubCardFlex>
+      <SubCardFlex>
         <Heading size="xl">Why you need this?</Heading>
         <p>Excel can handle .csv file, but its behavior is not always as you expect.</p>
         
@@ -89,56 +72,50 @@ export default function Home() {
 
         <Heading size="md">Benefits of this tool</Heading>
         <p>you can avoid these problems by converting .csv to .xlsx with this tool.</p>
-      </Flex>
-      <Flex
-        direction="column"
-        p="6"
-        m="2"
-        rounded={6}
-        gap={2}
-        background={formBackgroundSub}
-        width={["100%", "80%", "40em"]}
-      >
+      </SubCardFlex>
+      <SubCardFlex>
         <Heading size="xl">Is your data safe?</Heading>
         <p>Yes, your data is safe.</p>
         <p>All the conversion process is done on your browser.</p>
         <p>That is, your data is not sent to any server.</p> 
-      </Flex>
+      </SubCardFlex>
 
-      <Flex
-        direction="column"
-        p="6"
-        m="2"
-        rounded={6}
-        gap={2}
-        background={formBackgroundSub}
-        width={["100%", "80%", "40em"]}
-      >
+      <SubCardFlex>
         <Heading size="xl">About this app</Heading>
         <p>This app is created by <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda">kamaoda<ExternalLinkIcon mx='2px' /></Link>.</p>
         <p>Source code is available on <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda/csv-to-excel-iikanzi">GitHub<ExternalLinkIcon mx='2px' /></Link>.</p>
         <p>Feel free to use and contribute to this app.</p>
-      </Flex>
-      <Flex
-        direction="column"
-        p="6"
-        m="2"
-        rounded={6}
-        gap={2}
-        background={formBackgroundSub}
-        width={["100%", "80%", "40em"]}
-      >
+      </SubCardFlex>
+      <SubCardFlex>
         <Heading size="xl">OSS used in this app</Heading>
         <UnorderedList>
           <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://nextjs.org/">Next.js<ExternalLinkIcon mx='2px' /></Link></ListItem>
           <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://chakra-ui.com/">Chakra UI<ExternalLinkIcon mx='2px' /></Link></ListItem>
           <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://sheetjs.com">SheetJS<ExternalLinkIcon mx='2px' /></Link></ListItem>
         </UnorderedList>
-      </Flex>
+      </SubCardFlex>
       <Button m={2} colorScheme="teal" onClick={toggleColorMode} mt={4}>Toggle Color Mode</Button>
     </Flex>
   );
 };
+
+/**
+ * Card component with flex layout. Used for description cards.
+ */
+function SubCardFlex(props: FlexProps) {
+  return (
+    <Flex
+      direction="column"
+      p="6"
+      m="2"
+      rounded={6}
+      gap={2}
+      background={useColorModeValue("gray.200", "gray.600")}
+      width={["100%", "80%", "40em"]}
+      {...props}
+    />
+  );
+}
 
 interface InputOptionArea {
   option: ConvertOption;
