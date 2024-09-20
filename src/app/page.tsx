@@ -10,7 +10,6 @@ import * as XLSX from 'xlsx';
 export default function Home() {
   const { toggleColorMode } = useColorMode();
   const formBackgroundMain = useColorModeValue("gray.100", "gray.700");
-  const formBackgroundSub = useColorModeValue("gray.200", "gray.600");
   
   const [file, setFile] = useState<File | null>(null);
 
