@@ -86,14 +86,6 @@ export default function Home() {
         <p>Source code is available on <Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://github.com/kamaoda/csv-to-excel-iikanzi">GitHub<ExternalLinkIcon mx='2px' /></Link>.</p>
         <p>Feel free to use and contribute to this app.</p>
       </SubCardFlex>
-      <SubCardFlex>
-        <Heading size="xl">OSS used in this app</Heading>
-        <UnorderedList>
-          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://nextjs.org/">Next.js<ExternalLinkIcon mx='2px' /></Link></ListItem>
-          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://chakra-ui.com/">Chakra UI<ExternalLinkIcon mx='2px' /></Link></ListItem>
-          <ListItem><Link color="teal.500" target="_blank" rel="noopener noreferrer" href="https://sheetjs.com">SheetJS<ExternalLinkIcon mx='2px' /></Link></ListItem>
-        </UnorderedList>
-      </SubCardFlex>
       <Button m={2} colorScheme="teal" onClick={toggleColorMode} mt={4}>Toggle Color Mode</Button>
     </Flex>
   );
